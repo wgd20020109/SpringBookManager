@@ -3,7 +3,6 @@ package book.manager.controller.page;
 import book.manager.entity.AuthUser;
 import book.manager.service.AuthService;
 import book.manager.service.BookService;
-import book.manager.service.StatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
