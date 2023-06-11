@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>借阅信息 - 图书管理系统</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="icon" th:href="@{/static/image/img.png}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+</head>
+<body>
+<div class="loader">
+    <div class="spinner">
+        <img th:src="@{/static/picture/loader.gif}" alt="">
+    </div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+    <!-- Header Start -->
+    <div th:replace="headerTemplate.html::title"></div>
+    <div th:replace="headerTemplate.html::aside"></div>
+    <!-- Container Start -->
+    <div class="page-wrapper">
+        <div class="main-content">
+
+            <!-- Page Title Start -->
+            <div class="row">
+                <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-box ad-title-box-use">
+                            <h4 class="page-title">我的借阅</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Table Start -->
+            <div class="row">
+                <!-- Styled Table Card-->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card table-card">
+                        <div class="card-header pb-0">
+                            <h4>借阅信息</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-holder">
+                                <div class="table-responsive">
+                                    <table class="table table-styled mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>借阅ID</th>
+                                            <th>书名</th>
+                                            <th>借阅时间</th>
+                                            <th>当前状态</th>
+                                            <th>归还</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="books : ${borrowInfos}">
+                                            <td th:text="'# '+${books.getId()}"># 0</td>
+                                            <td th:text="${books.getBTitle()}">书名</td>
+                                            <td th:text="${books.getTime()}">
+                                                0000
+                                            </td>
+                                            <td>
+                                                <label class="mb-0 badge badge-primary"
+                                                       th:if="${books.getStatus().equals('已归还')}">已归还</label>
+                                                <label class="mb-0 badge badge-warning"
+                                                       th:if="${books.getStatus().equals('借阅中')}">借阅中</label>
+                                            </td>
+
+                                            <td class="relative" >
+                                                <a class="action-btn "
+                                                   th:if="${books.getStatus().equals('借阅中')}"
+                                                   th:href="@{/api/user/return-book(bid=${books.getBid()})}">
+                                                    <svg t="1686312088749" class="icon" viewBox="0 0 1024 1024"
+                                                         version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10216"
+                                                         width="32" height="32">
+                                                        <path d="M728.914 90.125H298.602v520.313a22.969 22.969 0 0 1-46.875 0V96.218a131.719 131.719 0 0 0-93.75 126.095v591.093a119.063 119.063 0 0 0 119.062 120.469h587.813V226.063A135.938 135.938 0 0 0 728.914 90.125zM427.977 200.75h315.937a22.031 22.031 0 0 1 22.5 22.5 22.5 22.5 0 0 1-22.5 22.5H427.977a22.5 22.5 0 0 1-22.5-22.5 22.031 22.031 0 0 1 22.5-22.5z m0 88.594h281.25a22.5 22.5 0 0 1 0 46.875h-281.25a22.5 22.5 0 0 1 0-46.875z m0 272.343H689.07L653.914 527a24.844 24.844 0 0 1 0-33.75 24.375 24.375 0 0 1 34.219 0l73.125 73.594a23.437 23.437 0 0 1 7.031 17.812 24.375 24.375 0 0 1-4.219 13.594l-2.343 3.281-71.25 71.25a23.906 23.906 0 0 1-33.75 0 24.375 24.375 0 0 1 0-34.218l31.406-30.938H426.102a22.5 22.5 0 0 1-20.625-23.906 22.5 22.5 0 0 1 20.625-22.032z m393.28 320.157a3.281 3.281 0 0 1-7.03 5.156h-555a53.906 53.906 0 0 1-54.375-52.969 57.187 57.187 0 0 1 53.437-55.312h555.938a3.281 3.281 0 0 1 3.75 3.75z"
+                                                              p-id="10217" fill="#33b4f8"></path>
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ad-footer-btm">
+                <p>Copyright &copy; 2023.Oreo All rights reserved.<a target="_blank" th:href="@{/error}">Ciallo～(∠・ω<
+                    )⌒★</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Script Start -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/swiper.min.js}"></script>
+<script th:src="@{/static/js/apexcharts.min.js}"></script>
+<script th:src="@{/static/js/control-chart-apexcharts.js}"></script>
+<!-- Page Specific -->
+<script th:src="@{/static/js/nice-select.min.js}"></script>
+<!-- Custom Script -->
+<script th:src="@{/static/js/custom.js}"></script>
+</body>
+</html>
