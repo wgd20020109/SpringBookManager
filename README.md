@@ -73,13 +73,20 @@ http://localhost:8080/SpringBookManager-1.0-SNAPSHOT/page/auth/login
 
 ## 配置说明 ⚙️
 
-### 数据库连接（当前实现）
+### 数据库连接（公开仓库推荐）
 
 数据库连接写在：
 
 - `/src/main/java/book/manager/config/RootConfiguration.java`
 
-当前代码中已硬编码 `jdbcUrl / username / password`。实际部署前建议改为你自己的数据库连接信息（更推荐改造成环境变量或外部配置）。
+项目不再存储任何真实数据库凭据，数据库配置改为外部注入：
+
+- `BOOK_DB_URL`（可选，默认：`jdbc:mysql://127.0.0.1:3306/bookmanage`）
+- `BOOK_DB_DRIVER`（可选，默认：`com.mysql.cj.jdbc.Driver`）
+- `BOOK_DB_USERNAME`（可选，默认：`bookmanager`）
+- `BOOK_DB_PASSWORD`（必填，无默认值）
+
+也支持等价的 JVM 参数：`-Dbook.db.url / -Dbook.db.driver / -Dbook.db.username / -Dbook.db.password`。
 
 ### 安全与权限
 
@@ -140,4 +147,3 @@ SpringBookManager/
 - [ ] 完善测试（Service 层与 Controller 层）
 - [ ] 增加图书搜索、分页与借阅历史筛选
 - [ ] 统一异常处理返回格式（页面 + API 双通道）
-
